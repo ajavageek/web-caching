@@ -1,0 +1,16 @@
+upstreams:
+  - id: 1
+    type: roundrobin
+    nodes:
+      "content:8080": 1
+routes:
+  - uri: /static
+    upstream_id: 1
+    plugins:
+      proxy-rewrite:
+        regex_uri: ["/static(.*)", "/$1"]
+      response-rewrite:
+        headers:
+          set:
+            Cache-Control: "max-age=10"
+#END
