@@ -13,4 +13,11 @@ routes:
         headers:
           set:
             Cache-Control: "max-age=10"
+  - uri: /cache*
+    upstream_id: 1
+    plugins:
+      proxy-rewrite:
+        regex_uri: ["/cache(.*)", "/$1"]
+      proxy-cache:
+        cache_bypass: ["$arg_bypass"]
 #END
